@@ -3,17 +3,6 @@ import { CONFIG_DIM_ID, LOCAL } from "./config";
 
 const MONTH_PICKER_ID = "month-picker";
 
-const handleInteraction = (monthKey: string) => {
-  console.log({ monthKey });
-
-  if (LOCAL) return;
-
-  dscc.sendInteraction("interactionId", dscc.InteractionType.FILTER, {
-    concepts: [CONFIG_DIM_ID],
-    values: [[monthKey]],
-  });
-};
-
 // Data Studio Year-Month format is YYYYMM
 export const encodeMonthKey = (date: Date) => {
   // JS months are 0-based
@@ -37,7 +26,24 @@ export const formatMonthKey = (key: string) => {
   }).format(date);
 };
 
+const handleInteraction = ({
+  dimensionId,
+  monthKey,
+}: {
+  dimensionId: string;
+  monthKey: string;
+}) => {
+  console.log({ dimensionId, monthKey });
+  if (LOCAL) return;
+
+  dscc.sendInteraction("interactionId", dscc.InteractionType.FILTER, {
+    concepts: [dimensionId],
+    values: [[monthKey]],
+  });
+};
+
 export const createMonthPicker = (data: dscc.ObjectFormat) => {
+  const dimensionId = data.fields[CONFIG_DIM_ID][0].id;
   const rows = data.tables.DEFAULT;
 
   const selectId = MONTH_PICKER_ID;
@@ -45,13 +51,13 @@ export const createMonthPicker = (data: dscc.ObjectFormat) => {
   select.id = selectId;
   select.name = selectId;
 
-  const monthKeys = rows.map((row) => row[CONFIG_DIM_ID]);
-
-  console.log({ monthKeys });
+  const monthKeys = rows.map((row) => row[CONFIG_DIM_ID][0]);
 
   for (const key of monthKeys) {
+    const monthKey = key.toString();
+
     const option = document.createElement("option");
-    option.value = key.toString();
+    option.value = monthKey;
     option.innerText = key.toString();
 
     select.appendChild(option);
@@ -60,7 +66,7 @@ export const createMonthPicker = (data: dscc.ObjectFormat) => {
   select.onchange = (event: any) => {
     const monthKey = event.target.value;
 
-    handleInteraction(monthKey);
+    handleInteraction({ dimensionId, monthKey });
   };
 
   return select;
