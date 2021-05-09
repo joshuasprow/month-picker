@@ -13,8 +13,6 @@ const handleInteraction = ({
     values: [[monthKey]],
   };
 
-  console.log({ CONFIG_INT_ID, interactionData });
-
   if (LOCAL) return;
 
   dscc.sendInteraction(
@@ -59,8 +57,6 @@ const Select = (data: dscc.ObjectFormat) => {
 };
 
 export const MonthPicker = (data: dscc.ObjectFormat) => {
-  console.log({ type: "render", data });
-
   const div = document.createElement("div");
   div.id = "month-picker";
 

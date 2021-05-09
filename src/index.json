@@ -5,18 +5,9 @@
       "label": "Concepts",
       "elements": [
         {
-          "id": "dimID",
-          "label": "A dimension",
+          "id": "monthId",
+          "label": "Month (TEXT)",
           "type": "DIMENSION",
-          "options": {
-            "min": 1,
-            "max": 1
-          }
-        },
-        {
-          "id": "metricID",
-          "label": "A metric",
-          "type": "METRIC",
           "options": {
             "min": 1,
             "max": 1

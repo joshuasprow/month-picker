@@ -5,7 +5,7 @@
  */
 
 import { ConceptType, FieldType, ObjectFormat, ObjectRow } from "@google/dscc";
-import { CONFIG_DIM_ID, CONFIG_MET_ID } from "./config";
+import { CONFIG_DIM_ID } from "./config";
 
 // Data Studio Year-Month format is YYYYMM
 const newYearMonth = (year: number, month: number) => {
@@ -20,38 +20,29 @@ const newYearMonth = (year: number, month: number) => {
   return yyyy + mm;
 };
 
-const values = [
-  [newYearMonth(2020, 10), "128863172"],
-  [newYearMonth(2020, 11), "61175933"],
-  [newYearMonth(2021, 0), "51055052"],
-  [newYearMonth(2021, 1), "43351778"],
-  [newYearMonth(2021, 2), "42179856"],
-  [newYearMonth(2021, 3), "72912380"],
-  [newYearMonth(2021, 4), "109123941"],
+const months = [
+  newYearMonth(2020, 10),
+  newYearMonth(2020, 11),
+  newYearMonth(2021, 0),
+  newYearMonth(2021, 1),
+  newYearMonth(2021, 2),
+  newYearMonth(2021, 3),
+  newYearMonth(2021, 4),
 ];
 
-const rows: ObjectRow[] = values.map(([dim, met]) => ({
-  [CONFIG_DIM_ID]: [dim],
-  [CONFIG_MET_ID]: [met],
+const rows: ObjectRow[] = months.map(([month]) => ({
+  [CONFIG_DIM_ID]: [month],
 }));
 
-export const message: ObjectFormat = {
+const localData: ObjectFormat = {
   tables: { DEFAULT: rows },
   fields: {
-    dimID: [
+    monthId: [
       {
         id: "qt_nzqx6a0xvb",
         name: "Month",
         type: FieldType.TEXT,
         concept: ConceptType.DIMENSION,
-      },
-    ],
-    metricID: [
-      {
-        id: "qt_8isx6a0xvb",
-        name: "Metric",
-        type: FieldType.NUMBER,
-        concept: ConceptType.METRIC,
       },
     ],
   },
@@ -84,3 +75,5 @@ export const message: ObjectFormat = {
   style: {},
   interactions: {},
 };
+
+export default localData;
