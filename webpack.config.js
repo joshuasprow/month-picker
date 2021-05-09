@@ -3,8 +3,8 @@ const fs = require("fs");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const CSS_FILE_NAME = process.env.npm_package_dsccViz_cssFile;
-const cssFilePath = path.join("src", CSS_FILE_NAME);
+const PUBLIC_DIR = path.resolve(__dirname, "public");
+const SRC_DIR = path.resolve(__dirname, "src");
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -15,10 +15,13 @@ const plugins = [
 ];
 
 let body = '<script src="main.js"></script>';
+
+const cssFilePath = path.join(SRC_DIR, process.env.npm_package_dsccViz_cssFile);
 if (fs.existsSync(cssFilePath)) {
   body = body + '\n<link rel="stylesheet" href="index.css">';
   plugins.push(new CopyWebpackPlugin([{ from: cssFilePath, to: "." }]));
 }
+
 const iframeHTML = `
 <!doctype html>
 <html><body>
@@ -26,18 +29,18 @@ ${body}
 </body></html>
 `;
 
-fs.writeFileSync(path.resolve(__dirname, "dist", "vizframe.html"), iframeHTML);
+fs.writeFileSync(path.join(PUBLIC_DIR, "vizframe.html"), iframeHTML);
 
 module.exports = [
   {
     mode: "development",
     entry: "./src/index.ts",
     devServer: {
-      contentBase: "./dist",
+      contentBase: PUBLIC_DIR,
     },
     output: {
       filename: "main.js",
-      path: path.resolve(__dirname, "dist"),
+      path: PUBLIC_DIR,
     },
     plugins: plugins,
     module: {
