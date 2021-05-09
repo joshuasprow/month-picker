@@ -19,7 +19,7 @@
   "style": [],
   "interactions": [
     {
-      "id": "interactionId",
+      "id": "onSelect",
       "supportedActions": [
         "FILTER"
       ]
