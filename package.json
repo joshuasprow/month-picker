@@ -14,7 +14,7 @@
     "push:prod": "dscc-scripts viz push -d prod",
     "deploy:dev": "yarn build:dev && yarn push:dev",
     "update_message": "dscc-scripts viz update_message -f object",
-    "start": "dscc-scripts viz start"
+    "start": "LOCAL=true dscc-scripts viz start"
   },
   "devDependencies": {
     "@google/dscc": "^0.3.17",
