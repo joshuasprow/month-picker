@@ -10,7 +10,7 @@ const render = (data: ObjectFormat) => {
 };
 
 if (LOCAL) {
-  render(require("./local-data"));
+  render(require("./local-data").default);
 } else {
   subscribeToData(render, { transform: objectTransform });
 }

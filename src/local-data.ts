@@ -30,9 +30,11 @@ const months = [
   newYearMonth(2021, 4),
 ];
 
-const rows: ObjectRow[] = months.map(([month]) => ({
+const rows: ObjectRow[] = months.map((month) => ({
   [CONFIG_DIM_ID]: [month],
 }));
+
+console.log(rows);
 
 const localData: ObjectFormat = {
   tables: { DEFAULT: rows },

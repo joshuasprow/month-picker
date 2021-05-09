@@ -3,7 +3,6 @@ import type {
   FieldsByConfigId,
   InteractionsById,
   ObjectFormat,
-  ObjectRow,
 } from "@google/dscc";
 
 const Td = (value: string) => {
@@ -75,21 +74,6 @@ const FieldsTable = (fieldsMap: FieldsByConfigId) => {
   return Table("Fields", headers, rows);
 };
 
-const DataTable = (tableRows: ObjectRow[]) => {
-  const headers = ["month", "metric"];
-  const rows: string[][] = [];
-
-  for (const tableRow of tableRows) {
-    const values: string[] = [];
-    for (const [_, [value]] of Object.entries(tableRow)) {
-      values.push(value.toString());
-    }
-    rows.push(values);
-  }
-
-  return Table("Data", headers, rows);
-};
-
 const Interactions = (interactions: InteractionsById) => {
   const div = document.createElement("div");
 
@@ -110,7 +94,6 @@ export const Display = (data: ObjectFormat) => {
   pre.innerText = JSON.stringify(data.interactions[0], null, 2);
 
   div.appendChild(FieldsTable(data.fields));
-  div.appendChild(DataTable(data.tables.DEFAULT));
   div.appendChild(Interactions(data.interactions));
 
   return div;

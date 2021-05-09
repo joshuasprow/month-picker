@@ -33,6 +33,7 @@ const Option = (key: dscc.RowEntry) => {
 };
 
 const Select = (data: dscc.ObjectFormat) => {
+  console.log(data);
   const dimensionId = data.fields[CONFIG_DIM_ID][0].id;
   const rows = data.tables.DEFAULT;
 
