@@ -68,8 +68,8 @@ export const MonthPicker = (data: dscc.ObjectFormat) => {
   span.id = "month-picker-version";
   span.innerText = VERSION;
 
-  div.appendChild(span);
   div.appendChild(Select(data));
+  div.appendChild(span);
 
   return div;
 };

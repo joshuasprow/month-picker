@@ -13,10 +13,5 @@ if (LOCAL) {
   // renders locally
   Viz(local.message);
 } else {
-  subscribeToData(Viz, {
-    transform: (data) => {
-      console.log({ type: "transform", data });
-      return objectTransform(data);
-    },
-  });
+  subscribeToData(Viz, { transform: objectTransform });
 }

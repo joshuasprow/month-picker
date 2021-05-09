@@ -1,10 +1,26 @@
 body {
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
+  margin: 0;
+}
+
+#month-picker-wrapper {
+  position: relative;
+  padding-top: 1rem;
+}
+
+#month-picker {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#month-picker-select {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 #month-picker-display {
+  font-family: "Roboto Mono", monospace;
   display: block;
-  background-color: #fdf6e3;
-  color: #586e75;
   overflow-y: scroll;
 }
