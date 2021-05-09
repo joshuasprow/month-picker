@@ -1,4 +1,4 @@
-import { objectTransform, subscribeToData } from "@google/dscc";
+import { ObjectFormat, objectTransform, subscribeToData } from "@google/dscc";
 import { Display } from "./components/Display";
 import { MonthPicker } from "./components/MonthPicker";
 import { Wrapper } from "./components/Wrapper";
@@ -7,11 +7,13 @@ import * as local from "./local-data";
 
 console.log({ config });
 
-const Viz = Wrapper(MonthPicker, Display);
+const render = (data: ObjectFormat) => {
+  document.body.innerHTML = "";
+  document.body.appendChild(Wrapper(data, MonthPicker, Display));
+};
 
 if (LOCAL) {
-  // renders locally
-  Viz(local.message);
+  render(local.message);
 } else {
-  subscribeToData(Viz, { transform: objectTransform });
+  subscribeToData(render, { transform: objectTransform });
 }

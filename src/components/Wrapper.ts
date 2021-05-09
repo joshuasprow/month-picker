@@ -2,7 +2,7 @@ import type { ObjectFormat } from "@google/dscc";
 
 type Component = (data: ObjectFormat) => HTMLElement;
 
-export const Wrapper = (...components: Component[]) => (data: ObjectFormat) => {
+export const Wrapper = (data: ObjectFormat, ...components: Component[]) => {
   const main = document.createElement("main");
   main.id = "month-picker-wrapper";
 
@@ -10,5 +10,5 @@ export const Wrapper = (...components: Component[]) => (data: ObjectFormat) => {
     main.appendChild(Component(data));
   }
 
-  document.body.appendChild(main);
+  return main;
 };
