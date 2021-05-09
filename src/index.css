@@ -5,7 +5,7 @@ body {
 
 #month-picker-wrapper {
   position: relative;
-  padding-top: 1rem;
+  padding-top: 2rem;
 }
 
 #month-picker {
@@ -22,6 +22,24 @@ body {
 #month-picker-display {
   font-family: "Roboto Mono", monospace;
   font-size: 0.75rem;
-  display: block;
   overflow-y: scroll;
+}
+
+#month-picker-display table {
+  margin-bottom: 1rem;
+}
+
+#month-picker-display caption,
+#month-picker-display td,
+#month-picker-display th {
+  text-align: left;
+}
+
+#month-picker-display caption {
+  text-decoration: underline;
+}
+
+#month-picker-display pre {
+  display: block;
+  margin-top: 0;
 }
