@@ -1,8 +1,8 @@
 {
-  "name": "My Visualizations",
-  "organization": "MyOrg",
-  "description": "My first visualization package.",
-  "logoUrl": "https://logo",
+  "name": "Visualizations",
+  "organization": "Snyder Salvage",
+  "description": "Public visualizations package.",
+  "logoUrl": "https://raw.githubusercontent.com/googledatastudio/community-visualizations/master/docs/codelab/img/bar_chart.png",
   "organizationUrl": "https://url",
   "supportUrl": "https://url",
   "privacyPolicyUrl": "https://url",
@@ -11,9 +11,10 @@
   "devMode": "DEVMODE_BOOL",
   "components": [
     {
-      "name": "myViz",
-      "description": "My first Community Visualization",
-      "iconUrl": "https://url",
+      "id": "monthPicker",
+      "name": "Month Picker",
+      "description": "A month picker",
+      "iconUrl": "https://raw.githubusercontent.com/googledatastudio/community-visualizations/master/docs/codelab/img/bar_chart.png",
       "resource": {
         "js": "YOUR_GCS_BUCKET/index.js",
         "config": "YOUR_GCS_BUCKET/index.json",

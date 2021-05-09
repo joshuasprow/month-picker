@@ -1,7 +1,7 @@
 {
   "dsccViz": {
-    "gcsDevBucket": "gs://wrench-josh-public/scratch/dev",
-    "gcsProdBucket": "gs://wrench-josh-public/scratch/prod",
+    "gcsDevBucket": "gs://wrench-josh-public/datastudio/visualizations/dev",
+    "gcsProdBucket": "gs://wrench-josh-public/datastudio/visualizations/prod",
     "tsFile": "index.ts",
     "jsonFile": "index.json",
     "cssFile": "index.css",
