@@ -21,6 +21,7 @@ body {
 
 #month-picker-display {
   font-family: "Roboto Mono", monospace;
+  font-size: 0.75rem;
   display: block;
   overflow-y: scroll;
 }
