@@ -1,5 +1,5 @@
 import * as dscc from "@google/dscc";
-import { CONFIG_DIM_ID, LOCAL } from "./config";
+import { CONFIG_DIM_ID, CONFIG_INT_ID, LOCAL } from "../config";
 
 const MONTH_PICKER_ID = "month-picker";
 
@@ -10,14 +10,20 @@ const handleInteraction = ({
   dimensionId: string;
   monthKey: string;
 }) => {
-  console.log({ dimensionId, monthKey });
+  const interactionData: dscc.FilterInteractionData = {
+    concepts: [dimensionId],
+    values: [[monthKey]],
+  };
+
+  console.log({ CONFIG_INT_ID, interactionData });
 
   if (LOCAL) return;
 
-  dscc.sendInteraction("interactionId", dscc.InteractionType.FILTER, {
-    concepts: [dimensionId],
-    values: [[monthKey]],
-  });
+  dscc.sendInteraction(
+    CONFIG_INT_ID,
+    dscc.InteractionType.FILTER,
+    interactionData
+  );
 };
 
 const Option = (key: dscc.RowEntry) => {
@@ -55,15 +61,7 @@ const Select = (data: dscc.ObjectFormat) => {
 };
 
 export const MonthPicker = (data: dscc.ObjectFormat) => {
-  console.log({ data });
+  console.log({ type: "render", data });
 
-  const prev = document.getElementById(MONTH_PICKER_ID);
-
-  if (prev) {
-    prev.parentElement?.removeChild(prev);
-  }
-
-  const next = Select(data);
-
-  document.body.appendChild(next);
+  return Select(data);
 };

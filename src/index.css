@@ -2,7 +2,9 @@ body {
   font-family: Roboto;
 }
 
-code {
+#month-picker-display {
+  display: block;
   background-color: #fdf6e3;
   color: #586e75;
+  overflow-y: scroll;
 }
