@@ -22,9 +22,13 @@ if (fs.existsSync(cssFilePath)) {
 
 const iframeHTML = `
 <!doctype html>
-<html><body>
+<html>
+<body>
+<main id="root">
 ${body}
-</body></html>
+</main>
+</body>
+</html>
 `;
 
 fs.writeFileSync(path.join(PUBLIC_DIR, "vizframe.html"), iframeHTML);

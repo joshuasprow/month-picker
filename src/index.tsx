@@ -1,21 +1,15 @@
+import { ObjectFormat, objectTransform, subscribeToData } from "@google/dscc";
 import React from "react";
 import ReactDOM from "react-dom";
+import { LOCAL } from "./config";
+import { MonthSelect } from "./MonthSelect";
 
-ReactDOM.render(<span>Hello</span>, document.body);
+const render = (data: ObjectFormat) => {
+  ReactDOM.render(<MonthSelect />, document.getElementById("root"));
+};
 
-// import { ObjectFormat, objectTransform, subscribeToData } from "@google/dscc";
-// import { Display } from "./components/Display";
-// import { MonthPicker } from "./components/MonthPicker";
-// import { Wrapper } from "./components/Wrapper";
-// import { LOCAL } from "./config";
-
-// const render = (data: ObjectFormat) => {
-//   document.body.innerHTML = "";
-//   document.body.appendChild(Wrapper(data, MonthPicker, Display));
-// };
-
-// if (LOCAL) {
-//   render(require("./local-data").default);
-// } else {
-//   subscribeToData(render, { transform: objectTransform });
-// }
+if (LOCAL) {
+  render(require("./local-data").default);
+} else {
+  subscribeToData(render, { transform: objectTransform });
+}
