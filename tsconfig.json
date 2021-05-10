@@ -8,6 +8,7 @@
     "allowJs": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "jsx": "react"
   }
 }

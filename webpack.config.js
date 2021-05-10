@@ -32,7 +32,7 @@ fs.writeFileSync(path.join(PUBLIC_DIR, "vizframe.html"), iframeHTML);
 module.exports = [
   {
     mode: "development",
-    entry: "./src/index.ts",
+    entry: "./src/index.tsx",
     devServer: {
       contentBase: PUBLIC_DIR,
     },
@@ -44,14 +44,14 @@ module.exports = [
     module: {
       rules: [
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           use: "ts-loader",
           exclude: /node_modules/,
         },
       ],
     },
     resolve: {
-      extensions: [".ts", ".js"],
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
   },
 ];
