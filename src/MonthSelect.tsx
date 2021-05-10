@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -26,6 +26,10 @@ const parseMonthKey = (key: string): { year: number; month: number } => {
   const year = parseInt(yyyy);
   const month = parseInt(mm) - 1;
 
+  if (isNaN(year) || isNaN(month)) {
+    throw new Error(`failed to parse month key: ${key}`);
+  }
+
   return { year, month };
 };
 
@@ -43,6 +47,8 @@ const formatMonth = (key: string) => {
 };
 
 export const MonthSelect: FC<{ data: ObjectFormat }> = ({ data }) => {
+  const [error, setError] = useState<Error | null>(null);
+
   const dimensionId = data.fields[CONFIG_DIM_ID][0].id;
   const rows = data.tables.DEFAULT;
 
@@ -52,8 +58,10 @@ export const MonthSelect: FC<{ data: ObjectFormat }> = ({ data }) => {
     const key = event.target.value;
 
     if (typeof key !== "string") {
-      console.error(
-        `event.target.value: expected "string", got "${typeof key}", value="${key}"`
+      setError(
+        new Error(
+          `event.target.value: expected "string", got "${typeof key}", value="${key}"`
+        )
       );
       return;
     }
@@ -63,10 +71,15 @@ export const MonthSelect: FC<{ data: ObjectFormat }> = ({ data }) => {
       values: [[key]],
     };
 
-    if (LOCAL) return;
+    if (LOCAL) {
+      setError(new Error("It's local dammit!"));
+      return;
+    }
 
     sendInteraction(CONFIG_INT_ID, InteractionType.FILTER, interactionData);
   };
+
+  if (error) throw error;
 
   return (
     <FormControl margin="dense" variant="outlined">
