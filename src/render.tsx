@@ -11,5 +11,5 @@ export const render = (data: ObjectFormat) => {
 
   document.body.appendChild(main);
 
-  ReactDOM.render(<MonthSelect />, document.getElementById("root"));
+  ReactDOM.render(<MonthSelect data={data} />, document.getElementById("root"));
 };
