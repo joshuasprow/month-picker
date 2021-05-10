@@ -4,7 +4,13 @@
  * locally.
  */
 
-import { ConceptType, FieldType, ObjectFormat, ObjectRow } from "@google/dscc";
+import {
+  ConceptType,
+  FieldType,
+  InteractionType,
+  ObjectFormat,
+  ObjectRow,
+} from "@google/dscc";
 import { CONFIG_DIM_ID } from "./config";
 
 // Data Studio Year-Month format is YYYYMM
@@ -75,7 +81,15 @@ const localData: ObjectFormat = {
     themeSeriesColor: [],
   },
   style: {},
-  interactions: {},
+  interactions: {
+    onSelect: {
+      supportedActions: [InteractionType.FILTER],
+      value: {
+        type: InteractionType.FILTER,
+        data: "",
+      },
+    },
+  },
 };
 
 export default localData;
