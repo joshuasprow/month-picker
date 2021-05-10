@@ -1,9 +1,14 @@
-import { objectTransform, subscribeToData } from "@google/dscc";
-import { LOCAL } from "./config";
-import { render } from "./render";
+import React from "react";
+import ReactDOM from "react-dom";
+import { App } from "./App";
 
-if (LOCAL) {
-  render(require("./local-data").default);
-} else {
-  subscribeToData(render, { transform: objectTransform });
-}
+const main = document.createElement("main");
+main.id = "root";
+document.body.appendChild(main);
+
+ReactDOM.render(
+  // @google/dscc-scripts fails to compile .tsx files, so I'm using
+  // React.createElement instead of jsx syntax here.
+  React.createElement(App),
+  document.getElementById("root")
+);
