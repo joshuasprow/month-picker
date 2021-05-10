@@ -8,9 +8,26 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select, { SelectProps } from "@material-ui/core/Select";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { CONFIG_DIM_ID, CONFIG_INT_ID, LOCAL } from "./config";
 import { ErrorBox } from "./ErrorBox";
+
+const sendInteractionData = ({
+  dimensionId,
+  key,
+}: {
+  dimensionId: string;
+  key: string;
+}) => {
+  const interactionData: FilterInteractionData = {
+    concepts: [dimensionId],
+    values: [[key]],
+  };
+
+  if (LOCAL) return;
+
+  sendInteraction(CONFIG_INT_ID, InteractionType.FILTER, interactionData);
+};
 
 const parseMonthKey = (key: string): { year: number; month: number } => {
   let yyyy = "";
@@ -53,6 +70,7 @@ export const MonthSelect: FC<{ dimensionId: string; table: ObjectRow[] }> = ({
   const [error, setError] = useState<Error | null>(null);
 
   const months = table.map((row) => row[CONFIG_DIM_ID][0]);
+  const defaultMonth = months[0];
 
   const handleChange: SelectProps["onChange"] = (event) => {
     const key = event.target.value;
@@ -66,15 +84,12 @@ export const MonthSelect: FC<{ dimensionId: string; table: ObjectRow[] }> = ({
       return;
     }
 
-    const interactionData: FilterInteractionData = {
-      concepts: [dimensionId],
-      values: [[key]],
-    };
-
-    if (LOCAL) return;
-
-    sendInteraction(CONFIG_INT_ID, InteractionType.FILTER, interactionData);
+    sendInteractionData({ dimensionId, key });
   };
+
+  useEffect(() => {
+    sendInteractionData({ dimensionId, key: defaultMonth.toString() });
+  }, []);
 
   if (error) return <ErrorBox error={error} />;
 
@@ -82,7 +97,7 @@ export const MonthSelect: FC<{ dimensionId: string; table: ObjectRow[] }> = ({
     <FormControl margin="dense" variant="outlined">
       <InputLabel id="month-picker-label">Month</InputLabel>
       <Select
-        defaultValue={months[0]}
+        defaultValue={defaultMonth}
         labelId="month-picker-label"
         label="Month"
         onChange={handleChange}
