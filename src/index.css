@@ -14,6 +14,10 @@ body {
   left: 0;
 }
 
+#month-picker-error {
+  color: red;
+}
+
 #month-picker-select {
   font-family: inherit;
   font-size: inherit;
