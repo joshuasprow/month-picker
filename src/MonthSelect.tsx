@@ -1,16 +1,39 @@
-import React, { FC, useState } from "react";
-
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select, { SelectProps } from "@material-ui/core/Select";
 import {
+  FieldsByConfigId,
+  FieldType,
   FilterInteractionData,
   InteractionType,
   ObjectFormat,
   sendInteraction,
 } from "@google/dscc";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select, { SelectProps } from "@material-ui/core/Select";
+import React, { FC, useEffect, useState } from "react";
 import { CONFIG_DIM_ID, CONFIG_INT_ID, LOCAL } from "./config";
+
+const validateDimensionField = (fieldsMap: FieldsByConfigId): Error | null => {
+  const fields = fieldsMap[CONFIG_DIM_ID];
+
+  if (!fields) {
+    return new Error(`No fields with ID "${CONFIG_DIM_ID}`);
+  }
+  if (fields.length === 0) {
+    return new Error(`"${CONFIG_DIM_ID}" fields have 0 elements`);
+  }
+
+  const [field] = fields;
+
+  if (field.type !== FieldType.TEXT) {
+    return new Error(
+      `Dimension field is of type "${field.type}".\n` +
+        `It must be"${FieldType.TEXT}" to work correctly.`
+    );
+  }
+
+  return null;
+};
 
 const parseMonthKey = (key: string): { year: number; month: number } => {
   let yyyy = "";
@@ -49,12 +72,10 @@ const formatMonth = (key: string) => {
 export const MonthSelect: FC<{ data: ObjectFormat }> = ({ data }) => {
   const [error, setError] = useState<Error | null>(null);
 
-  const dimensionId = data.fields[CONFIG_DIM_ID][0].id;
-  const rows = data.tables.DEFAULT;
-
-  const months = rows.map((row) => row[CONFIG_DIM_ID][0]);
+  const months = data.tables.DEFAULT.map((row) => row[CONFIG_DIM_ID][0]);
 
   const handleChange: SelectProps["onChange"] = (event) => {
+    const dimensionId = data.fields[CONFIG_DIM_ID][0].id;
     const key = event.target.value;
 
     if (typeof key !== "string") {
@@ -78,6 +99,10 @@ export const MonthSelect: FC<{ data: ObjectFormat }> = ({ data }) => {
 
     sendInteraction(CONFIG_INT_ID, InteractionType.FILTER, interactionData);
   };
+
+  useEffect(() => {
+    setError(validateDimensionField(data.fields));
+  }, [data.fields]);
 
   if (error) throw error;
 
