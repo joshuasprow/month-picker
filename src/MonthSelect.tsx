@@ -95,19 +95,23 @@ export const MonthSelect: FC<{ dimensionId: string; table: ObjectRow[] }> = ({
 
   return (
     <FormControl margin="dense" variant="outlined">
-      <InputLabel id="month-picker-label">Month</InputLabel>
+      <InputLabel htmlFor="month-picker-select">Month</InputLabel>
       <Select
+        native
         defaultValue={defaultMonth}
-        labelId="month-picker-label"
+        inputProps={{
+          id: "month-picker-select",
+          name: "month",
+        }}
         label="Month"
         onChange={handleChange}
       >
         {months.map((month) => {
           const m = month.toString();
           return (
-            <MenuItem key={m} value={m}>
+            <option key={m} value={m}>
               {formatMonth(m)}
-            </MenuItem>
+            </option>
           );
         })}
       </Select>
