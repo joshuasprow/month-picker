@@ -24,9 +24,7 @@ const iframeHTML = `
 <!doctype html>
 <html>
 <body>
-<main id="root">
 ${body}
-</main>
 </body>
 </html>
 `;
