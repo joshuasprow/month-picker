@@ -101,6 +101,7 @@ export const MonthSelect: FC<{ dimensionId: string; table: ObjectRow[] }> = ({
       SelectProps={{
         native: true,
       }}
+      variant="outlined"
     >
       {monthKeys.map((key) => (
         <option key={key} value={key}>
