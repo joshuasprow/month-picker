@@ -1,6 +1,9 @@
 import React from "react";
 
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 
 const months = [
   "2020-05-01",

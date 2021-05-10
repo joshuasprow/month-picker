@@ -2,7 +2,7 @@
   "dsccViz": {
     "gcsDevBucket": "gs://wrench-josh-public/datastudio/visualizations/dev",
     "gcsProdBucket": "gs://wrench-josh-public/datastudio/visualizations/prod",
-    "tsFile": "index.tsx",
+    "tsFile": "index.ts",
     "jsonFile": "index.json",
     "cssFile": "index.css",
     "print": "printMessage.js"

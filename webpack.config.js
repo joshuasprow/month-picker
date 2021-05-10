@@ -36,7 +36,7 @@ fs.writeFileSync(path.join(PUBLIC_DIR, "vizframe.html"), iframeHTML);
 module.exports = [
   {
     mode: "development",
-    entry: "./src/index.tsx",
+    entry: "./src/index.ts",
     devServer: {
       contentBase: PUBLIC_DIR,
     },
